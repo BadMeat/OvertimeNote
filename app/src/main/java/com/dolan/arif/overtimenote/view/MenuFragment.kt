@@ -14,9 +14,6 @@ import com.dolan.arif.overtimenote.R
 import com.dolan.arif.overtimenote.viewmodel.MenuViewModel
 import kotlinx.android.synthetic.main.fragment_menu.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class MenuFragment : Fragment(), View.OnClickListener {
 
     private val menuAdapter = MenuAdapter()
@@ -33,7 +30,8 @@ class MenuFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         btn_menu_add.setOnClickListener(this)
-
+        btn_person_add.setOnClickListener(this)
+        btn_food_add.setOnClickListener(this)
         rv_menu.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = menuAdapter
@@ -51,9 +49,16 @@ class MenuFragment : Fragment(), View.OnClickListener {
                 val action = MenuFragmentDirections.actionMenuAdd()
                 Navigation.findNavController(v).navigate(action)
             }
+            R.id.btn_person_add -> {
+                val action = MenuFragmentDirections.actionPersonAdd()
+                Navigation.findNavController(v).navigate(action)
+            }
+            R.id.btn_food_add -> {
+                val action = MenuFragmentDirections.actionFoodAdd()
+                Navigation.findNavController(v).navigate(action)
+            }
         }
     }
-
 
     private fun showData() {
         menuViewModel.menuList.observe(this, Observer { menu ->

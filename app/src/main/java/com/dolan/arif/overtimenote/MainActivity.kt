@@ -7,9 +7,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.dolan.arif.overtimenote.util.DatePickerFragment
-import com.dolan.arif.overtimenote.view.MenuAddFragment
-import java.text.SimpleDateFormat
-import java.util.*
+import com.dolan.arif.overtimenote.view.MenuDateFragment
 
 class MainActivity : AppCompatActivity(), DatePickerFragment.DatePickerListener {
 
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity(), DatePickerFragment.DatePickerListener 
     override fun onDialogSet(tag: String?, year: Int, month: Int, day: Int) {
         val fragment = supportFragmentManager.primaryNavigationFragment as NavHostFragment
         val menuAddFragment = fragment.childFragmentManager.primaryNavigationFragment
-        if (menuAddFragment is MenuAddFragment) {
+        if (menuAddFragment is MenuDateFragment) {
             menuAddFragment.onDialogSet(tag, year, month, day)
         }
     }

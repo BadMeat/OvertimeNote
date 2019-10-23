@@ -6,4 +6,10 @@
     <string name="menu">Menu</string>
     <string name="poster">Poster</string>
     <string name="save">Save</string>
+    <string name="lookup">…</string>
+    <string name="name">Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="menu_add">Menu Add</string>
+    <string name="person_add">Person Add</string>
+    <string name="food">Food</string>
 </resources>
