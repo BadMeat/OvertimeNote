@@ -12,4 +12,8 @@
     <string name="menu_add">Menu Add</string>
     <string name="person_add">Person Add</string>
     <string name="food">Food</string>
+    <string name="search">search</string>
+    <string name="date">Date</string>
+    <string name="delete">Delete</string>
+    <string name="total">Total</string>
 </resources>

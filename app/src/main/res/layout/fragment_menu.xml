@@ -61,5 +61,17 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_person_add"
         app:layout_constraintTop_toTopOf="@+id/btn_person_add" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_report"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_food_add"
+        app:layout_constraintEnd_toStartOf="@+id/btn_food_add"
+        app:layout_constraintTop_toTopOf="@+id/btn_food_add" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

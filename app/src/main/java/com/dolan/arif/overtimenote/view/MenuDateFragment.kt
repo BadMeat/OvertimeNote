@@ -18,8 +18,8 @@ class MenuDateFragment : Fragment(), DatePickerFragment.DatePickerListener {
     override fun onDialogSet(tag: String?, year: Int, month: Int, day: Int) {
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        txt_date.text = dateFormat.format(calendar.time)
+        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+        txt_date.setText(dateFormat.format(calendar.time))
     }
 
     override fun onCreateView(

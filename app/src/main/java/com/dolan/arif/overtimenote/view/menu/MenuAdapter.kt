@@ -11,11 +11,12 @@ import com.dolan.arif.overtimenote.model.Menu
 /**
  * Created by Bencoleng on 22/10/2019.
  */
-class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
+class MenuAdapter(private val listener: (Menu) -> Unit) :
+    RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 
     private val menuList = mutableListOf<Menu>()
 
-    fun setMenuList(e : List<Menu>){
+    fun setMenuList(e: List<Menu>) {
         menuList.clear()
         menuList.addAll(e)
         notifyDataSetChanged()
@@ -30,6 +31,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
                 parent,
                 false
             )
+            , listener
         )
     }
 
@@ -37,8 +39,19 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 
     override fun onBindViewHolder(holder: MenuHolder, position: Int) {
         holder.view.menu = menuList[position]
+        holder.onClick()
     }
 
-    class MenuHolder(val view: ItemMenuBinding) : RecyclerView.ViewHolder(view.root)
+    class MenuHolder(val view: ItemMenuBinding, val listener: (Menu) -> Unit) :
+        RecyclerView.ViewHolder(view.root) {
+        fun onClick() {
+            itemView.setOnClickListener {
+                view.menu?.let {
+                    listener(it)
+                }
+            }
+
+        }
+    }
 
 }

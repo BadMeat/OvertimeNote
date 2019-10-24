@@ -7,16 +7,18 @@ import androidx.room.RoomDatabase
 import com.dolan.arif.overtimenote.model.Food
 import com.dolan.arif.overtimenote.model.Menu
 import com.dolan.arif.overtimenote.model.Person
+import com.dolan.arif.overtimenote.model.Report
 
 /**
  * Created by Bencoleng on 22/10/2019.
  */
-@Database(entities = [Menu::class, Person::class, Food::class], version = 1)
+@Database(entities = [Menu::class, Person::class, Food::class, Report::class], version = 1)
 abstract class DatabaseHelper : RoomDatabase() {
 
     abstract fun menuDao(): MenuDao
     abstract fun personDao(): PersonDao
     abstract fun foodDao(): FoodDao
+    abstract fun reportDao(): ReportDao
 
     companion object {
 

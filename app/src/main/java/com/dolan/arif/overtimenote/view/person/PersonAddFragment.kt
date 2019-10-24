@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.dolan.arif.overtimenote.R
+import com.dolan.arif.overtimenote.hideKeyboard
 import com.dolan.arif.overtimenote.model.Person
+import com.dolan.arif.overtimenote.showKeyboard
 import com.dolan.arif.overtimenote.viewmodel.PersonViewModel
 import kotlinx.android.synthetic.main.fragment_person_add.*
 
@@ -38,6 +40,8 @@ class PersonAddFragment : Fragment(), View.OnClickListener {
             R.id.btn_save -> {
                 val person = Person(input_name.text.toString())
                 personViewModel.save(person)
+                input_name.text?.clear()
+                hideKeyboard()
             }
         }
     }

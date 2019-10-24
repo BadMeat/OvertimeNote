@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,23 +16,38 @@ import com.dolan.arif.overtimenote.model.Menu
 import com.dolan.arif.overtimenote.viewmodel.MenuAddViewModel
 import kotlinx.android.synthetic.main.fragment_menu_add.*
 
-class MenuAddFragment : Fragment() {
+class MenuAddFragment : Fragment(), View.OnClickListener {
 
     private lateinit var menuAddViewModel: MenuAddViewModel
     private var typeArg = "add"
-    private var menuId = 0
+    private lateinit var menu: Menu
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_menu_add, container, false)
+    }
+
+    override fun onPrepareOptionsMenu(menu: android.view.Menu) {
+        val myMenu = menu.findItem(R.id.menu_search)
+        Log.d("MYMENY", "$myMenu")
+        myMenu.isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        hideToolbar(1)
+
         menuAddViewModel = ViewModelProviders.of(activity!!).get(MenuAddViewModel::class.java)
+
+        btn_save.setOnClickListener(this)
+        btn_person.setOnClickListener(this)
+        btn_food.setOnClickListener(this)
+        btn_delete.setOnClickListener(this)
 
         arguments?.let {
             val arg = MenuAddFragmentArgs.fromBundle(it)
@@ -39,36 +55,44 @@ class MenuAddFragment : Fragment() {
             typeArg = arg.type
             txt_date.text = date
             if (typeArg.equals("update", true)) {
-                menuId = arg.id
-                val menu = arg.menu
+                menu = arg.menu
                 txt_name.setText(menu.person)
                 txt_food.setText(menu.food)
-//                menuAddViewModel.findById(menuId)
+            } else {
+                btn_delete.visibility = View.GONE
             }
-        }
-
-        btn_save.setOnClickListener {
-            val name = txt_name.text.toString()
-            val food = txt_food.text.toString()
-            val menu = Menu(name, food, txt_date.text.toString())
-            if (typeArg.equals("update", true)) {
-                Log.d("IDPASSING", "$menuId")
-                menu.id = menuId
-            }
-            menuAddViewModel.saveMenu(menu, typeArg)
-        }
-
-        btn_person.setOnClickListener {
-            val action = MenuAddFragmentDirections.actionPerson()
-            Navigation.findNavController(it).navigate(action)
-        }
-
-        btn_food.setOnClickListener {
-            val action = MenuAddFragmentDirections.actionFood()
-            Navigation.findNavController(it).navigate(action)
         }
 
         showData()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_save -> {
+                val name = txt_name.text.toString()
+                val food = txt_food.text.toString()
+                val tempMenu = Menu(name, food, txt_date.text.toString())
+                if (typeArg.equals("update", true)) {
+                    tempMenu.id = menu.id
+                }
+                menuAddViewModel.saveMenu(tempMenu, typeArg)
+                Navigation.findNavController(v).popBackStack()
+            }
+
+            R.id.btn_delete -> {
+                menuAddViewModel.deleteMenu(menu)
+                Navigation.findNavController(v).popBackStack()
+            }
+
+            R.id.btn_person -> {
+                val action = MenuAddFragmentDirections.actionPerson()
+                Navigation.findNavController(v).navigate(action)
+            }
+            R.id.btn_food -> {
+                val action = MenuAddFragmentDirections.actionFood()
+                Navigation.findNavController(v).navigate(action)
+            }
+        }
     }
 
     private fun showData() {
@@ -85,7 +109,6 @@ class MenuAddFragment : Fragment() {
         })
         menuAddViewModel.person.observe(this, Observer { person ->
             person?.let {
-                Log.d("MASUKSINI", "MASUK SINI DONG")
                 txt_name.setText(it.name)
             }
         })
@@ -99,5 +122,21 @@ class MenuAddFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         activity?.viewModelStore?.clear()
+    }
+
+    private fun hideToolbar(mode: Int) {
+        // 1 Hide
+        // 2 Show
+        val toolbar = (activity as AppCompatActivity).supportActionBar
+        if (mode == 1) {
+            toolbar?.hide()
+        } else {
+            toolbar?.show()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+//        hideToolbar(2)
     }
 }

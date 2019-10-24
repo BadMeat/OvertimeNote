@@ -11,12 +11,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dolan.arif.overtimenote.R
+import com.dolan.arif.overtimenote.hideKeyboard
 import com.dolan.arif.overtimenote.viewmodel.MenuViewModel
 import kotlinx.android.synthetic.main.fragment_menu.*
 
 class MenuFragment : Fragment(), View.OnClickListener {
 
-    private val menuAdapter = MenuAdapter()
+    private lateinit var menuAdapter: MenuAdapter
     private lateinit var menuViewModel: MenuViewModel
 
     override fun onCreateView(
@@ -28,10 +29,21 @@ class MenuFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        hideKeyboard()
 
         btn_menu_add.setOnClickListener(this)
         btn_person_add.setOnClickListener(this)
         btn_food_add.setOnClickListener(this)
+        btn_report.setOnClickListener(this)
+
+        menuAdapter = MenuAdapter { date ->
+            val action = MenuFragmentDirections.actionMenuList()
+            date.date?.let {
+                action.date = it
+            }
+            Navigation.findNavController(view).navigate(action)
+        }
+
         rv_menu.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = menuAdapter
@@ -56,6 +68,10 @@ class MenuFragment : Fragment(), View.OnClickListener {
             }
             R.id.btn_food_add -> {
                 val action = MenuFragmentDirections.actionFoodAdd()
+                Navigation.findNavController(v).navigate(action)
+            }
+            R.id.btn_report -> {
+                val action = MenuFragmentDirections.actionReport()
                 Navigation.findNavController(v).navigate(action)
             }
         }

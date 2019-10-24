@@ -1,9 +1,6 @@
 package com.dolan.arif.overtimenote.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.dolan.arif.overtimenote.model.Menu
 
 /**
@@ -29,5 +26,8 @@ interface MenuDao {
 
     @Query("select * from Menu where id = :id")
     suspend fun findById(id: Int): Menu
+
+    @Delete
+    suspend fun delete(menu: Menu)
 
 }

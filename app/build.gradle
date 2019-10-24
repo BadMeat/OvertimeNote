@@ -31,7 +31,7 @@ android {
     }
     dataBinding.enabled = true
 
-    androidExtensions{
+    androidExtensions {
         experimental = true
     }
 }
@@ -62,4 +62,7 @@ dependencies {
     // Cardview, RecyclerView Lifecycle
     implementation "com.android.support:design:$support_version"
     implementation "android.arch.lifecycle:extensions:$life_cycle_extension"
+
+    // Chart
+    implementation 'me.ithebk:barchart:0.9'
 }
