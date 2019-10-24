@@ -11,11 +11,11 @@ class MenuListViewModel(application: Application) : BaseViewModel(application) {
     val menuList = MutableLiveData<List<Menu>>()
     val isLoading = MutableLiveData<Boolean>()
 
-    fun getData() {
+    fun findByDate(date : String) {
         isLoading.value = true
         launch {
             val dao = DatabaseHelper.invoke(getApplication()).menuDao()
-            menuList.value = dao.select()
+            menuList.value = dao.findByDate(date)
             isLoading.value = false
         }
     }

@@ -1,4 +1,4 @@
-package com.dolan.arif.overtimenote.view
+package com.dolan.arif.overtimenote.view.menu
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,7 +23,14 @@ class MenuAdapter : RecyclerView.Adapter<MenuAdapter.MenuHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuHolder {
         val layout = LayoutInflater.from(parent.context)
-        return MenuHolder(DataBindingUtil.inflate(layout, R.layout.item_menu, parent, false))
+        return MenuHolder(
+            DataBindingUtil.inflate(
+                layout,
+                R.layout.item_menu,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount() = menuList.size

@@ -1,4 +1,4 @@
-package com.dolan.arif.overtimenote.view
+package com.dolan.arif.overtimenote.view.menu
 
 
 import android.os.Bundle
@@ -50,7 +50,8 @@ class MenuFragment : Fragment(), View.OnClickListener {
                 Navigation.findNavController(v).navigate(action)
             }
             R.id.btn_person_add -> {
-                val action = MenuFragmentDirections.actionPersonAdd()
+                val action =
+                    MenuFragmentDirections.actionPersonAdd()
                 Navigation.findNavController(v).navigate(action)
             }
             R.id.btn_food_add -> {

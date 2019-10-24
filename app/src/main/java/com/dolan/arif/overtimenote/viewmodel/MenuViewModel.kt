@@ -18,7 +18,11 @@ class MenuViewModel(application: Application) : BaseViewModel(application) {
         isLoading.value = true
         launch {
             val dao = DatabaseHelper.invoke(getApplication()).menuDao()
-            menuList.value = dao.select()
+            val data = dao.findByDate()
+            data?.let {
+                menuList.value = it
+            }
+
             isLoading.value = false
         }
     }

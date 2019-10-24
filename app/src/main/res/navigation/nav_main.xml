@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.dolan.arif.overtimenote.view.MenuFragment"
+        android:name="com.dolan.arif.overtimenote.view.menu.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuListFragment"
-        android:name="com.dolan.arif.overtimenote.view.MenuListFragment"
+        android:name="com.dolan.arif.overtimenote.view.menu.MenuListFragment"
         android:label="fragment_menu_list"
         tools:layout="@layout/fragment_menu_list">
         <argument
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuAddFragment"
-        android:name="com.dolan.arif.overtimenote.view.MenuAddFragment"
+        android:name="com.dolan.arif.overtimenote.view.menu.MenuAddFragment"
         android:label="fragment_menu_add"
         tools:layout="@layout/fragment_menu_add" >
         <action
@@ -53,6 +53,21 @@
         <action
             android:id="@+id/actionFood"
             app:destination="@id/foodFragment" />
+        <argument
+            android:name="date"
+            app:argType="string"
+            android:defaultValue="1-1-1" />
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue="add"/>
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="menu"
+            app:argType="com.dolan.arif.overtimenote.model.Menu"/>
     </fragment>
     <fragment
         android:id="@+id/personAddFragment"

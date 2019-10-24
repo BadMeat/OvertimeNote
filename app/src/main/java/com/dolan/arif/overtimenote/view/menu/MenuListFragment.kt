@@ -1,8 +1,7 @@
-package com.dolan.arif.overtimenote.view
+package com.dolan.arif.overtimenote.view.menu
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +11,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dolan.arif.overtimenote.R
+import com.dolan.arif.overtimenote.model.Menu
 import com.dolan.arif.overtimenote.viewmodel.MenuListViewModel
 import kotlinx.android.synthetic.main.fragment_menu_list.*
 
 class MenuListFragment : Fragment() {
 
-    private val menuAdapter = MenuAdapter()
+    private lateinit var menuAdapter: MenuListAdapter
     private lateinit var menuListViewModel: MenuListViewModel
+    private var argDate = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,9 +31,18 @@ class MenuListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        menuAdapter = MenuListAdapter {
+            val action = MenuListFragmentDirections.actionMenuAdd(it)
+            action.date = argDate
+            action.type = "update"
+            action.id = it.id
+            action.menu = it
+            Navigation.findNavController(view).navigate(action)
+        }
+
         arguments?.let {
-            val date = MenuListFragmentArgs.fromBundle(it).date
-            Log.d("DATENYAMANG", "$date")
+            argDate = MenuListFragmentArgs.fromBundle(it).date
+            txt_date.text = argDate
         }
 
         rv_menu_list.apply {
@@ -41,11 +51,13 @@ class MenuListFragment : Fragment() {
         }
 
         menuListViewModel = ViewModelProviders.of(this).get(MenuListViewModel::class.java)
-        menuListViewModel.getData()
+        menuListViewModel.findByDate(argDate)
         showData()
 
         btn_add.setOnClickListener {
-            val action = MenuListFragmentDirections.actionMenuAdd()
+            val action = MenuListFragmentDirections.actionMenuAdd(Menu("", "", ""))
+            action.date = argDate
+            action.type = "add"
             Navigation.findNavController(it).navigate(action)
         }
     }
@@ -53,7 +65,7 @@ class MenuListFragment : Fragment() {
     private fun showData() {
         menuListViewModel.menuList.observe(this, Observer { menu ->
             menu?.let {
-                menuAdapter.setMenuList(it)
+                menuAdapter.setMenu(it)
             }
         })
         menuListViewModel.isLoading.observe(this, Observer { isLoading ->

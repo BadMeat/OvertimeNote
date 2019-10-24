@@ -30,6 +30,10 @@ android {
         }
     }
     dataBinding.enabled = true
+
+    androidExtensions{
+        experimental = true
+    }
 }
 
 def room_version = '2.2.0-rc01'

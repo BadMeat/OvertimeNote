@@ -1,6 +1,7 @@
 package com.dolan.arif.overtimenote.viewmodel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.dolan.arif.overtimenote.database.DatabaseHelper
@@ -28,13 +29,28 @@ class MenuAddViewModel(application: Application) : BaseViewModel(application) {
         food.value = e
     }
 
-    fun saveMenu(e: Menu) {
+    fun saveMenu(e: Menu, type: String) {
         isLoading.value = true
         launch {
             val dao = DatabaseHelper.invoke(getApplication()).menuDao()
-            dao.save(e)
+            val message: String
+            Log.d("ARGS", type)
+            message = if (type.equals("update", true)) {
+                dao.update(e)
+                "Update Success"
+            } else {
+                dao.save(e)
+                "Save Success"
+            }
             isLoading.value = false
-            Toast.makeText(getApplication(), "Save Success", Toast.LENGTH_SHORT).show()
+            Toast.makeText(getApplication(), message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun findById(id: Int) {
+        launch {
+            val dao = DatabaseHelper.invoke(getApplication()).menuDao()
+            menu.value = dao.findById(id)
         }
     }
 
