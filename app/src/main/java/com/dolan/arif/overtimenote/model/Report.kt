@@ -7,10 +7,11 @@ import androidx.room.PrimaryKey
 @Entity
 data class Report(
     @ColumnInfo(name = "date")
-    val date: String,
+    var date: String,
     @ColumnInfo(name = "total")
-    val total: Int
+    var total: Int
 ) {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     var id = 0
 }

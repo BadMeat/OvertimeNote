@@ -16,9 +16,10 @@
         <TextView
             android:id="@+id/txt_title"
             android:layout_width="wrap_content"
+            style="@style/TextViewTitle"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:text="@string/menu"
+            android:text="@string/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,8 +37,8 @@
 
         <ImageView
             android:id="@+id/btn_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="24dp"
             android:contentDescription="@string/poster"
@@ -50,18 +51,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_date"
             app:layout_constraintEnd_toStartOf="@+id/btn_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title">
+            app:layout_constraintTop_toTopOf="@+id/btn_date">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_date"
-                android:enabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/date" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

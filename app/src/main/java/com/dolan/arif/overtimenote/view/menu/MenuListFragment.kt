@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dolan.arif.overtimenote.R
+import com.dolan.arif.overtimenote.hideKeyboard
 import com.dolan.arif.overtimenote.model.Menu
 import com.dolan.arif.overtimenote.model.Report
 import com.dolan.arif.overtimenote.reset
@@ -24,6 +25,7 @@ class MenuListFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTex
     private lateinit var menuListViewModel: MenuListViewModel
     private var argDate = ""
     private lateinit var searchView: SearchView
+    private var reportId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +56,7 @@ class MenuListFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTex
         menuAdapter = MenuListAdapter {
             val action = MenuListFragmentDirections.actionMenuAdd(it)
             action.date = argDate
-            action.type = "update"
+            action.type = "updateReport"
             action.menu = it
             Navigation.findNavController(view).navigate(action)
             searchView.reset()
@@ -82,7 +84,13 @@ class MenuListFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTex
                 Navigation.findNavController(v).navigate(action)
             }
             R.id.btn_save -> {
-                menuListViewModel.saveReport(Report(argDate, input_total.text.toString().toInt()))
+                val report = Report(argDate, input_total.text.toString().toInt())
+                if (reportId != -1) {
+                    report.id = reportId
+                }
+                menuListViewModel.saveReport(report)
+                menuListViewModel.findReportByDate(argDate)
+                hideKeyboard()
             }
         }
     }
@@ -101,6 +109,7 @@ class MenuListFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTex
         menuListViewModel.report.observe(this, Observer { report ->
             report?.let {
                 input_total.setText(it.total.toString())
+                reportId = it.id
             }
         })
     }

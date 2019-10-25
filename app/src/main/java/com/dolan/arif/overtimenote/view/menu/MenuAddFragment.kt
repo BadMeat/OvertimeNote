@@ -32,7 +32,6 @@ class MenuAddFragment : Fragment(), View.OnClickListener {
 
     override fun onPrepareOptionsMenu(menu: android.view.Menu) {
         val myMenu = menu.findItem(R.id.menu_search)
-        Log.d("MYMENY", "$myMenu")
         myMenu.isVisible = false
         super.onPrepareOptionsMenu(menu)
     }
@@ -54,7 +53,7 @@ class MenuAddFragment : Fragment(), View.OnClickListener {
             val date = arg.date
             typeArg = arg.type
             txt_date.text = date
-            if (typeArg.equals("update", true)) {
+            if (typeArg.equals("updateReport", true)) {
                 menu = arg.menu
                 txt_name.setText(menu.person)
                 txt_food.setText(menu.food)
@@ -72,7 +71,7 @@ class MenuAddFragment : Fragment(), View.OnClickListener {
                 val name = txt_name.text.toString()
                 val food = txt_food.text.toString()
                 val tempMenu = Menu(name, food, txt_date.text.toString())
-                if (typeArg.equals("update", true)) {
+                if (typeArg.equals("updateReport", true)) {
                     tempMenu.id = menu.id
                 }
                 menuAddViewModel.saveMenu(tempMenu, typeArg)
@@ -133,10 +132,5 @@ class MenuAddFragment : Fragment(), View.OnClickListener {
         } else {
             toolbar?.show()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-//        hideToolbar(2)
     }
 }

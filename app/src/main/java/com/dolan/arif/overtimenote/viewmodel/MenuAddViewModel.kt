@@ -33,7 +33,7 @@ class MenuAddViewModel(application: Application) : BaseViewModel(application) {
         launch {
             val dao = DatabaseHelper.invoke(getApplication()).menuDao()
             val message: String
-            message = if (type.equals("update", true)) {
+            message = if (type.equals("updateReport", true)) {
                 dao.update(e)
                 "Update Success"
             } else {

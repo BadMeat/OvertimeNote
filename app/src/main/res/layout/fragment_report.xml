@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_color"
     tools:context=".view.report.ReportFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             barchart:bar_color="@color/colorPrimary"
-            barchart:bar_max_value="100"
             barchart:bar_show_animation="true"
             barchart:bar_show_auto_color="false"
             barchart:bar_show_value="true"
@@ -23,7 +23,7 @@
             barchart:bar_text_color="#808080"
             barchart:bar_text_size="10sp"
             barchart:bar_type="vertical"
-            barchart:bar_width="30dp"
+            barchart:bar_width="70dp"
             barchart:layout_constraintBottom_toBottomOf="parent"
             barchart:layout_constraintEnd_toEndOf="parent"
             barchart:layout_constraintStart_toStartOf="parent"

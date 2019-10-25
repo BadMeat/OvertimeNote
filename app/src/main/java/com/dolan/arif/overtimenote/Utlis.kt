@@ -2,10 +2,12 @@ package com.dolan.arif.overtimenote
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import java.util.*
 
 fun Fragment.hideKeyboard() {
     view?.let {
@@ -25,6 +27,11 @@ fun SearchView.reset() {
     this.onActionViewCollapsed()
     this.setQuery("", false)
     this.clearFocus()
+}
+
+private fun getRandomColor(): Int {
+    val rnd = Random()
+    return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
 }
 
 private fun Context.hideKeyboard(view: View) {

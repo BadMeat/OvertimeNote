@@ -13,9 +13,9 @@ interface ReportDao {
     suspend fun insert(vararg report: Report): List<Long>
 
     @Update
-    suspend fun update(report: Report)
+    suspend fun updateReport(report: Report)
 
-    @Query("select * from Report")
+    @Query("select * from Report order by date")
     suspend fun select(): List<Report>
 
     @Query("select * from Report where date = :date")

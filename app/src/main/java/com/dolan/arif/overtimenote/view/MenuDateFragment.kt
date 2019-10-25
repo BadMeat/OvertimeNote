@@ -26,7 +26,14 @@ class MenuDateFragment : Fragment(), DatePickerFragment.DatePickerListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_menu_date, container, false)
+    }
+
+    override fun onPrepareOptionsMenu(menu: android.view.Menu) {
+        val myMenu = menu.findItem(R.id.menu_search)
+        myMenu.isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
