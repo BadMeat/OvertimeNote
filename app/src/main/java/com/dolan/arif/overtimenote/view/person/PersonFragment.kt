@@ -17,7 +17,7 @@ import com.dolan.arif.overtimenote.reset
 import com.dolan.arif.overtimenote.viewmodel.MenuAddViewModel
 import kotlinx.android.synthetic.main.fragment_person.*
 
-class PersonFragment : Fragment(), SearchView.OnQueryTextListener {
+class PersonFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var menuAddViewModel: MenuAddViewModel
     private lateinit var personAdapter: PersonAdapter
@@ -35,12 +35,13 @@ class PersonFragment : Fragment(), SearchView.OnQueryTextListener {
         val myMenu = menu.findItem(R.id.menu_search)
         searchView = myMenu.actionView as SearchView
         searchView.setOnQueryTextListener(this)
+        searchView.isIconified = false
         super.onPrepareOptionsMenu(menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        btn_add.setOnClickListener(this)
         menuAddViewModel = ViewModelProviders.of(activity!!).get(MenuAddViewModel::class.java)
         menuAddViewModel.getDataPerson()
 
@@ -73,5 +74,15 @@ class PersonFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
         personAdapter.filter.filter(newText)
         return true
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_add -> {
+                searchView.reset()
+                val action = PersonFragmentDirections.actionPersonAdd()
+                Navigation.findNavController(v).navigate(action)
+            }
+        }
     }
 }

@@ -19,19 +19,10 @@ fun Fragment.showKeyboard() {
     activity?.showKeyboard()
 }
 
-fun Activity.hideKeyboard() {
-    hideKeyboard(if (currentFocus == null) View(this) else currentFocus)
-}
-
 fun SearchView.reset() {
     this.onActionViewCollapsed()
     this.setQuery("", false)
     this.clearFocus()
-}
-
-private fun getRandomColor(): Int {
-    val rnd = Random()
-    return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
 }
 
 private fun Context.hideKeyboard(view: View) {

@@ -17,8 +17,7 @@ import com.dolan.arif.overtimenote.reset
 import com.dolan.arif.overtimenote.viewmodel.MenuAddViewModel
 import kotlinx.android.synthetic.main.fragment_food.*
 
-class FoodFragment : Fragment(), SearchView.OnQueryTextListener {
-
+class FoodFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTextListener {
 
     private lateinit var foodAdapter: FoodAdapter
     private lateinit var menuAddViewModel: MenuAddViewModel
@@ -36,11 +35,13 @@ class FoodFragment : Fragment(), SearchView.OnQueryTextListener {
         val myMenu = menu.findItem(R.id.menu_search)
         searchView = myMenu.actionView as SearchView
         searchView.setOnQueryTextListener(this)
+        searchView.isIconified = false
         super.onPrepareOptionsMenu(menu)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        btn_add.setOnClickListener(this)
         foodAdapter = FoodAdapter {
             menuAddViewModel.setFood(it)
             searchView.reset()
@@ -79,4 +80,13 @@ class FoodFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btn_add -> {
+                searchView.reset()
+                val action = FoodFragmentDirections.actionFoodAdd()
+                Navigation.findNavController(v).navigate(action)
+            }
+        }
+    }
 }

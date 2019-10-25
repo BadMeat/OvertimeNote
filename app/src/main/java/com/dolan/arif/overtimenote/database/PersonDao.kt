@@ -11,7 +11,7 @@ interface PersonDao {
     @Insert
     suspend fun insert(vararg person: Person): List<Long>
 
-    @Query("select * from Person")
+    @Query("select * from Person  order by name")
     suspend fun select(): List<Person>
 
 }

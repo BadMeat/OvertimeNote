@@ -1,29 +1,25 @@
 package com.dolan.arif.overtimenote.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.dolan.arif.overtimenote.database.DatabaseHelper
-import com.dolan.arif.overtimenote.model.Menu
+import com.dolan.arif.overtimenote.model.CountWrapper
 import kotlinx.coroutines.launch
 
-/**
- * Created by Bencoleng on 22/10/2019.
- */
-class MenuViewModel(application: Application) : BaseViewModel(application) {
+class MenuCountViewModel(application: Application) : BaseViewModel(application) {
 
-    val menuList = MutableLiveData<List<Menu>>()
+    val countList = MutableLiveData<List<CountWrapper>>()
     val isLoading = MutableLiveData<Boolean>()
 
-    fun getData() {
+    fun getData(date: String) {
         isLoading.value = true
         launch {
             val dao = DatabaseHelper.invoke(getApplication()).menuDao()
-            val data = dao.findByDate()
-            data.let {
-                menuList.value = it
-            }
-
+            Log.d("DATAU","${dao.findCountByDate(date)}")
+            countList.value = dao.findCountByDate(date)
             isLoading.value = false
         }
     }
+
 }

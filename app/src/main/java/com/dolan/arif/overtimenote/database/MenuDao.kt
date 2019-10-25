@@ -1,6 +1,7 @@
 package com.dolan.arif.overtimenote.database
 
 import androidx.room.*
+import com.dolan.arif.overtimenote.model.CountWrapper
 import com.dolan.arif.overtimenote.model.Menu
 
 /**
@@ -29,5 +30,8 @@ interface MenuDao {
 
     @Delete
     suspend fun delete(menu: Menu)
+
+    @Query("select count(food) as jumlah, food from Menu where date = :date group by food")
+    suspend fun findCountByDate(date: String): List<CountWrapper>
 
 }

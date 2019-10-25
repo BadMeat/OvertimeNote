@@ -15,8 +15,13 @@ class FoodViewModel(application: Application) : BaseViewModel(application) {
         isLoading.value = true
         launch {
             val dao = DatabaseHelper.invoke(getApplication()).foodDao()
-            dao.insert(e)
-            Toast.makeText(getApplication(), "Save Success", Toast.LENGTH_SHORT).show()
+            val food = dao.findByName(e.name)
+            if (food != null) {
+                Toast.makeText(getApplication(), "Data Already Exists", Toast.LENGTH_SHORT).show()
+            } else {
+                dao.insert(e)
+                Toast.makeText(getApplication(), "Save Success", Toast.LENGTH_SHORT).show()
+            }
             isLoading.value = false
         }
     }

@@ -39,8 +39,6 @@ class MenuAddFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        hideToolbar(1)
-
         menuAddViewModel = ViewModelProviders.of(activity!!).get(MenuAddViewModel::class.java)
 
         btn_save.setOnClickListener(this)
@@ -121,16 +119,5 @@ class MenuAddFragment : Fragment(), View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         activity?.viewModelStore?.clear()
-    }
-
-    private fun hideToolbar(mode: Int) {
-        // 1 Hide
-        // 2 Show
-        val toolbar = (activity as AppCompatActivity).supportActionBar
-        if (mode == 1) {
-            toolbar?.hide()
-        } else {
-            toolbar?.show()
-        }
     }
 }

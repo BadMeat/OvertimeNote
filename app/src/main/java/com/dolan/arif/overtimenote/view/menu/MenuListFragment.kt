@@ -39,6 +39,7 @@ class MenuListFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTex
         val myMenu = menu.findItem(R.id.menu_search)
         searchView = myMenu.actionView as SearchView
         searchView.setOnQueryTextListener(this)
+        searchView.reset()
         super.onPrepareOptionsMenu(menu)
     }
 
@@ -73,6 +74,7 @@ class MenuListFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTex
 
         btn_add.setOnClickListener(this)
         btn_save.setOnClickListener(this)
+        btn_count.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -91,6 +93,11 @@ class MenuListFragment : Fragment(), View.OnClickListener, SearchView.OnQueryTex
                 menuListViewModel.saveReport(report)
                 menuListViewModel.findReportByDate(argDate)
                 hideKeyboard()
+            }
+            R.id.btn_count -> {
+                val action = MenuListFragmentDirections.actionMenuCount()
+                action.date = argDate
+                Navigation.findNavController(v).navigate(action)
             }
         }
     }
